@@ -18,8 +18,6 @@ namespace Sbabu.Web.Repository.Infrastructure
             dbset = DataContext.Set<T>();
         }
 
-
-
         protected IDatabaseFactory DatabaseFactory
         {
             get;
@@ -33,35 +31,28 @@ namespace Sbabu.Web.Repository.Infrastructure
 
         public virtual T Add(T entity)
         {
-             var entity1 = dbset.Add(entity);
-            //  dataContext.SaveChanges();
+             var entity1 = dbset.Add(entity);           
             return entity;
         }
 
         public virtual T Update(T entity)
         {
             dbset.Attach(entity);
-            dataContext.Entry(entity).State = EntityState.Modified;
-            //      dataContext.SaveChanges();
+            dataContext.Entry(entity).State = EntityState.Modified;          
             return entity;
         }
 
         public virtual void Delete(T entity)
         {
-            dbset.Remove(entity);
-            //  dataContext.SaveChanges();
+            dbset.Remove(entity);           
         }
 
         public virtual void Delete(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbset.Where<T>(where).AsEnumerable();
             foreach (T obj in objects)
-                dbset.Remove(obj);
-            // dataContext.SaveChanges();
+                dbset.Remove(obj);           
         }
-
-
-
         public virtual IEnumerable<T> GetAll()
         {
             return dbset.ToList();
@@ -81,7 +72,6 @@ namespace Sbabu.Web.Repository.Infrastructure
         {
             return dbset.SingleOrDefault(x => x.Id == id);
         }
-
 
     }
 }
