@@ -4,13 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sbabu.Web.Models;
+using Sbabu.Web.Repository.Abstract;
+using Sbabu.Web.Repository.Impl;
+using Sbabu.Web.Repository.Infrastructure;
 using Sbabu.Web.Services;
+using Sbabu.Web.Services.Abstract;
+using Sbabu.Web.Services.Impl;
+using UserService = Sbabu.Web.Services.UserService;
 
 namespace Sbabu.Web
 {
@@ -45,20 +52,27 @@ namespace Sbabu.Web
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            //services.AddEntityFramework()
+            //    .AddSqlServer()
+            //    .AddDbContext<DatabaseContext>();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+
 
             services.AddMvc();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+
+            services.AddTransient<IPortfolioService, PortfolioService>();
+            services.AddTransient<IPortfolioRepository, PortfolioRepository>();
+            services.AddScoped<IDatabaseFactory, DatabaseFactory>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+             
+            services.AddTransient<IConfigurationRoot, ConfigurationRoot>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,7 +99,7 @@ namespace Sbabu.Web
                     using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                         .CreateScope())
                     {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                        serviceScope.ServiceProvider.GetService<DatabaseContext>()
                              .Database.Migrate();
                     }
                 }
@@ -98,7 +112,7 @@ namespace Sbabu.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+             
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
@@ -107,6 +121,11 @@ namespace Sbabu.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+            app.UseCookieAuthentication(options =>
+            {
+                options.LoginPath = new PathString("/login");
+                options.AuthenticationScheme = "Cookies";
             });
         }
 

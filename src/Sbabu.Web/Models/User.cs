@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Sbabu.Web.Models
 {
     [Table("Users")]
-    public class User
+    public class User : IEntity
     {
         public int Id { get; set; }
 
