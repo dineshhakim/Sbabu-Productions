@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
- 
+
 
 namespace Sbabu.Web.Models
 {
     [Table("Company")]
-    public class Company
+    public class Company : IEntity
     {
         public int Id { get; set; }
         [Column(TypeName = "NVARCHAR")]

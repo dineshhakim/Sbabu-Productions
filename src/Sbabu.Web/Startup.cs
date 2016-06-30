@@ -72,6 +72,9 @@ namespace Sbabu.Web
             services.AddScoped<IUnitOfWork, UnitOfWork>();
              
             services.AddTransient<IConfigurationRoot, ConfigurationRoot>();
+            services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
+
 
         }
 

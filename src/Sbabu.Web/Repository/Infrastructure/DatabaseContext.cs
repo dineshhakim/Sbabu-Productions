@@ -12,7 +12,7 @@ namespace Sbabu.Web.Repository.Infrastructure
         //public IConfigurationRoot Configuration { get; set; }
         public DatabaseContext()
         {
-           // Configuration = configuration;
+            // Configuration = configuration;
         }
 
         public IConfigurationRoot Configuration { get; set; }

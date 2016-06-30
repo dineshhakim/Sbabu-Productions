@@ -3,23 +3,35 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using Sbabu.Web.Models;
+using Sbabu.Web.Services.Impl;
 using Sbabu.Web.Services.Abstract;
+using System.Collections.Generic;
+using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Hosting;
+using System.IO;
+using Microsoft.Net.Http.Headers;
+using Sbabu.Web.Utility;
+using Sbabu.Web.ViewModels;
 
 namespace Sbabu.Web.Controllers
 {
     public class PortfoliosController : Controller
     {
-        public readonly IPortfolioService Service;
+        public IPortfolioService service;
+        private IHostingEnvironment _environment;
+        private string imagesfolder = @"\Images\photos\";
 
-        public PortfoliosController(IPortfolioService _service)
+        public PortfoliosController(IPortfolioService serv, IHostingEnvironment environment)
         {
-            Service = _service;
+            service = serv;
+            _environment = environment;
         }
+
 
         // GET: Portfolios
         public IActionResult Index()
         {
-            return View(Service.GetAll());
+            return View(service.GetAll().ToList());
         }
 
         // GET: Portfolios/Details/5
@@ -30,7 +42,7 @@ namespace Sbabu.Web.Controllers
                 return HttpNotFound();
             }
 
-            var portfolio = Service.GetById((long)id);
+            Portfolio portfolio = service.GetById((long)id);
             if (portfolio == null)
             {
                 return HttpNotFound();
@@ -44,15 +56,22 @@ namespace Sbabu.Web.Controllers
         {
             return View();
         }
-
+        //http://corediaries.blogspot.com/2016/03/aspnet-core-mvc-6-uploading-files.html
         // POST: Portfolios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Portfolio portfolio)
+        public IActionResult Create(PortfolioViewModel portfolio, IFormFile Image)
         {
+
             if (ModelState.IsValid)
             {
-                Service.Add(portfolio);
+                if (Image != null && Image.Length > 0)
+                {
+                    var imagename = FormFileHelpers.Save(Image, _environment.WebRootPath + imagesfolder);
+                    portfolio.Url = imagename;
+                }
+                var portfolioentity = new Portfolio { PortfolioName = portfolio.PortfolioName, PortfolioDescription = portfolio.PortfolioDescription, Url = portfolio.Url };
+                service.Add(portfolioentity);
                 return RedirectToAction("Index");
             }
             return View(portfolio);
@@ -66,7 +85,7 @@ namespace Sbabu.Web.Controllers
                 return HttpNotFound();
             }
 
-            var portfolio = Service.GetById((long)id);
+            Portfolio portfolio = service.GetById((long)id);
             if (portfolio == null)
             {
                 return HttpNotFound();
@@ -81,7 +100,7 @@ namespace Sbabu.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Service.Update(portfolio);
+                service.Update(portfolio);
                 return RedirectToAction("Index");
             }
             return View(portfolio);
@@ -96,7 +115,7 @@ namespace Sbabu.Web.Controllers
                 return HttpNotFound();
             }
 
-            var portfolio = Service.GetById((long)id);
+            Portfolio portfolio = service.GetById((long)id);
             if (portfolio == null)
             {
                 return HttpNotFound();
@@ -110,8 +129,8 @@ namespace Sbabu.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var portfolio = Service.GetById((long)id);
-            Service.Delete(portfolio);
+            Portfolio portfolio = service.GetById(id);
+            service.Delete(portfolio);
             return RedirectToAction("Index");
         }
     }
