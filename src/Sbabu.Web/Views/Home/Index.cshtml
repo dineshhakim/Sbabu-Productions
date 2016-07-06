@@ -2,9 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-<br>
-<br>
-<br>
+@model Sbabu.Web.ViewModels.HomeViewModel
+
 <!-- works -->
 <div id="home" class="clearfix grid">
     <div class="row">
@@ -15,8 +14,7 @@
     <!-- works -->
 </div>
 
-<div class=" container" id="photos">
-    <!-- photos Starts -->
+<div class="container" id="photos">
     <div class="spacer about">
 
         <h1><center>PHOTOS</center></h1>
@@ -24,68 +22,16 @@
         <div class="dgallery2 row">
             <div class="content">
                 <div class="bg effect2">
-                    <div id="links">
-                        <a href="~/images/photos/1.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/1.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/2.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/2.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/4.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/4.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/5.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/5.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/6.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/6.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/7.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/7.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/8.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/8.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/3.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/3.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/9.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/9.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/10.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/10.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/11.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/11.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/12.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/12.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/13.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/13.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/14.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/14.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/15.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/15.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/16.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/16.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/17.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/17.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/18.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/18.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/19.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/19.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                        <a href="~/images/photos/20.jpg" title="Photos" data-gallery="">
-                            <img src="~/images/photos/20.jpg" class="img-thumbnail" height="200px" width="150px">
-                        </a>
-                    </div>
+
+                    @foreach (var item in Model.Photos)
+                    {
+                       var @imageUrl ="~/images/photos/"+item.Url;
+                        <div id="links">
+                            <a href="@imageUrl" title="Photos" data-gallery="">
+                                <img src="@imageUrl" class="img-thumbnail" height="200px" width="150px">
+                            </a>
+                        </div>
+                    }
 
                     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
                         <div class="slides"></div>
@@ -98,10 +44,10 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
-    <!-- photos sections ends -->
 </div>
 
 <div class="container" id="videos">
@@ -127,7 +73,7 @@
 <br>
 <br>
 
- 
+
 
 <div class="container" id="contact">
     <h1><center>CONTACT</center></h1>
@@ -141,14 +87,11 @@
             <br>
             <br>
             <br>
-
             <img class="img-rounded" src="~/images/photos/contact.jpg">
-
         </div>
         <div class="col-sm-6 col-sm-4" id="pic">
             <div class="contactform">
                 <div style="visibility: visible; animation-name: fadeInLeftBig;" class="row wowload fadeInLeftBig animated">
-
                     <div>
                         <form role="form" action="assets/php/send.php" class="contact-form" method="post">
                             <input name="name" placeholder="Name" maxlength="70" required="" type="text">
@@ -161,9 +104,6 @@
                     <br>
                     <br>
                 </div>
-
-
-
             </div>
         </div>
         <div class="col-sm-6 col-sm-4" id="desc">
@@ -223,15 +163,16 @@
 
 </div>
 
- 
-<!-- wow script -->
-<script src="~/js/wow.js"></script>
- 
-<script src="~/js/touchSwipe.min.js"></script>
-<script src="~/js/respond.js"></script>
-<script src="~/lib/angular/angular-route.js"></script>
+
 <script src="~/lib/angular/angular.min.js"></script>
 <script src="~/lib/angular/angular-route.js"></script>
 <script src="~/lib/angular/angular-sanitize.min.js"></script>
 <script src="~/js/script.js"></script>
- 
+<script src="~/js/touchSwipe.min.js"></script>
+<script type="text/javascript" src="~/js/site.js"></script>
+<!-- wow script -->
+<script src="~/js/wow.min.js"></script>
+
+<script src="~/js/jquery_002.js"></script>
+<script src="~/js/respond.js"></script>
+
