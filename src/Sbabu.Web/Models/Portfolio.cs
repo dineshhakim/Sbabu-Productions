@@ -19,6 +19,10 @@ namespace Sbabu.Web.Models
         public int PortfolioType { get; set; }
 
         public string Url { get; set; }
-        
+        [Display(Name = "Order")]
+        public int Odr { get; set; }
+
+        public bool Active { get; set; }
+
     }
 }
