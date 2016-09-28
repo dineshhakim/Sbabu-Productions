@@ -1,0 +1,190 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="~/lib/style.css">
+<br>
+<br>
+<br>
+@model Sbabu.Web.ViewModels.HomeViewModel
+
+<!-- works -->
+<div id="home" class="clearfix grid">
+    <div class="row">
+        <div class="col-sm-6 col-sm-4 focus"><a href="#photos"><img src="~/images/photo.png" class="photo" width="100%"></a></div>
+        <div class="col-sm-6 col-sm-4 focus"><a href="#videos"><img src="~/images/video.png" class="photo" width="100%"></a></div>
+        <div class="col-sm-6 col-sm-4 focus"><a href="#"><img src="~/images/dj.png" class="photo" width="100%"></a></div>
+    </div>
+    <!-- works -->
+</div>
+
+<div class=" container" id="photos">
+    <!-- photos Starts -->
+    <div class="container" id="photos">
+        <div class="spacer about">
+
+            <h1><center>PHOTOS</center></h1>
+
+            <div class="dgallery2 row">
+                <div class="content">
+                    <div class="bg effect2">
+
+                        @foreach (var item in Model.Photos)
+                        {
+                            var @imageUrl = "~/images/photos/" + item.Url;
+                            <div id="links">
+                                <a href="@imageUrl" title="Photos" data-gallery="">
+                                    <img src="@imageUrl" class="img-thumbnail" height="200px" width="150px">
+                                </a>
+                            </div>
+                        }
+
+                        <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+                            <div class="slides"></div>
+                            <h3 class="title"></h3>
+                            <a class="prev">‹</a>
+                            <a class="next">›</a>
+                            <a class="close">×</a>
+                            <a class="play-pause"></a>
+                            <ol class="indicator"></ol>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- photos sections ends -->
+    </div>
+
+    <div class="container" id="videos">
+        <!-- video sections starts -->
+        <div class="row">
+            <h1><center>VIDEOS</center></h1>
+            <div class="col-sm-6 col-sm-4">
+                <iframe src="~/images/photos/lNQwJDPvdeA.htm" height="400px" width="100%"></iframe>
+            </div>
+            <div class="col-sm-6 col-sm-4">
+                <iframe src="~/images/photos/Q1TcXaUiGbM.htm" height="400px" width="100%"></iframe>
+            </div>
+            <div class="col-sm-6 col-sm-4">
+                <iframe src="~/images/photos/aJFTjjIofUg.htm" height="400px" width="100%"></iframe>
+            </div>
+        </div><br>
+        <br>
+        <br>
+        <h2 class="see-more"><a href="https:/www.youtube.com/channel/UCWmOKym7UyossWclJ3pmxJA">See more &gt;&gt;</a></h2>
+
+    </div>
+    <br>
+    <br>
+    <br>
+
+
+
+
+    <div class="container" id="contact">
+        <h1><center>CONTACT</center></h1>
+        <h1><center id="email1">Say Hi to SBabu!</center></h1>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-4" id="pic">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <img class="img-rounded" src="~/images/photos/contact.jpg">
+
+            </div>
+            <div class="col-sm-6 col-sm-4" id="pic">
+                <div class="contactform">
+                    <div style="visibility: visible; animation-name: fadeInLeftBig;" class="row wowload fadeInLeftBig animated">
+
+                        <div>
+                            <form role="form" action="assets/php/send.php" class="contact-form" method="post">
+                                <input name="name" placeholder="Name" maxlength="70" required="" type="text">
+                                <input name="company" placeholder="Phone Number" maxlength="15" required="" type="text">
+                                <textarea rows="5" name="message" placeholder="Message" minlength="5" maxlength="300" required=""></textarea>
+                                <button class="btn btn-primary" type="submit" id="submit"><i class="fa fa-paper-plane"></i> Send</button>
+                                <div id="sucess"></div>
+                            </form>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-sm-4" id="desc">
+                <div>
+                    <br>
+                    <!-- <p>for availability and discuss about your next party!</p>     -->
+                    <div class="text-center">
+                        <i class="fa fa-phone fa-3x wow bounceIn"></i>
+                        <p class="email">510-367-0303</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                        <p><a class="email" href="mailto:sbabuproductions@gmail.com">sbabuproductions@gmail.com</a></p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <a class="facebook" href="https:/www.facebook.com/sbabupro/?fref=ts" target="_blank" style="margin-right: 5px;">
+                            <i class="fa fa-facebook-square fa-3x wow bounceIn" style="visibility: visible; animation-nabounceIn;"></i>
+                        </a>
+                        <a class="youtube" href="https:/www.youtube.com/channel/UCWmOKym7UyossWclJ3pmxJA" target="_blank" style="margin-right: 5px;">
+                            <i class="fa fa-youtube-square fa-3x wow bounceIn" style="visibility: visibleanimation-name: bounceIn;"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+        <div class="row">
+            <p class="desc" align="justify">
+                “Namaste, I am Sandip Chaudhary (SBabu Sandip),  CEO &amp; Owner
+                of SBabu Productions, I welcome you to my Company  page. Any Ideas or
+                suggestions are highly appreciated. I’d love to do the best for you”
+                Mr SBabu hails from a very beautiful country Nepal. Having Completed
+                Masters in Strategic in leadership from MSU West Virginia, he plans to
+                capture your hearts with his work as a MC, DJ, Photo/videographer, Photo
+                video editor &amp; Sound Technician, helping to set new standard in
+                this field. Some say he makes Magic….
+                Currently he’s been serving as a Master of Ceremony, DJ, Sound
+                Technician, Photographer &amp; Video Editor since 2011. He is a very
+                easy to work with, friendly and polite man.
+                Before he came to United States of America, in 2008, He served as a
+                Media person for 6 years back in Nepal. He worked as a Program
+                Coordinator as well as Production Manager in one of the recognized media
+                house (Kalika FM Pvt LTD ) in Nepal.
+            </p>
+
+        </div>
+        <p></p><center>© SBabu Productions 2015 All Rights Reserved</center><p></p>
+        <br><br>
+
+    </div>
+
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/lib/angular/angular-route.js"></script>
+    <script src="~/lib/angular/angular-sanitize.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <script src="~/js/touchSwipe.min.js"></script>
+    <script type="text/javascript" src="~/js/site.js"></script>
+    <!-- wow script -->
+    <script src="~/js/wow.min.js"></script>
+
+    <script src="~/js/jquery_002.js"></script>
+    <script src="~/js/respond.js"></script>
+
